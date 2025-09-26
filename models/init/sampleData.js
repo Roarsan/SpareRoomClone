@@ -1,4 +1,4 @@
-const sampleList= [
+const sampleData= [
     {
       list: "Apartment",
       image: "https://example.com/apt1.jpg",
@@ -36,5 +36,5 @@ const sampleList= [
     }
   ]
 
-  module.exports = {data:sampleList};
+  module.exports = {data:sampleData};
   

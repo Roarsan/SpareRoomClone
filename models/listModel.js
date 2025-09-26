@@ -9,6 +9,6 @@ const listSchema = new mongoose.Schema({
     price: { type: Number, required: true, min: 0 }
   }, { timestamps: true });
 
-const list = mongoose.model("listSchema",listSchema);
-module.exports = list;
+const ListModel = mongoose.model("listSchema",listSchema);
+module.exports = ListModel;
   
