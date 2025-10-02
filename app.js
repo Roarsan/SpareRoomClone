@@ -1,34 +1,27 @@
 const express = require("express");
 const app = express();
 
-const db = require("mongoose");
-const MONGO_URL = "mongodb://127.0.0.1:27017/spare_room";
+// Import database connection
+const connectDB = require("./config/database");
 
+// Import routes
+const listRoutes = require("./routes/listRoutes");
 
-async function main() {
-  try {
-    await db.connect(MONGO_URL);
-    console.log("db connected");
-  } catch (err) {
-    console.error("Error connecting to DB:", err);
-  }
-}
+// Connect to database
+connectDB();
 
-main();
+// Set view engine
+app.set("view engine", "ejs");
 
+// Routes
 app.get("/", (req, res) => {
-  res.send("hi");
+  res.send("Welcome to SpareRoom Clone! <a href='/list'>View Listings</a>");
 });
 
-app.listen(8080, () => {
-  console.log("🚀 Server listening on port 8080");
-});
+app.use("/list", listRoutes);
 
-app.set("view engine","ejs");
-
-const List = require("./models/listModel.js");
-
-app.get("/List", async (req, res) => {
-  const listing = await List.find();
-  res.render("listings/index",{listing});
+// Start server
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`🚀 Server listening on port ${PORT}`);
 });
