@@ -10,13 +10,11 @@ A minimal SpareRoom-style listings app built with Express, Mongoose, and EJS, st
 ## Project Structure
 ```
 SpareRoom/
-├── app.js                 # App entry: mounts routes, sets view engine
+├── app.js                 # App entry: defines routes, sets view engine
 ├── config/
 │   └── database.js        # Centralized Mongo connection
 ├── controllers/
 │   └── listController.js  # Controller (business logic)
-├── routes/
-│   └── listRoutes.js      # Routes for /list
 ├── models/
 │   ├── listModel.js       # Mongoose model
 │   └── init/
@@ -45,7 +43,7 @@ npm install
 
 ## Run the App
 ```bash
-node app.js
+nodemon app.js
 ```
 
 Then open `http://localhost:8080`.
@@ -53,7 +51,7 @@ Then open `http://localhost:8080`.
 ## Seed the Database (Sample Data)
 This will clear the `lists` collection and insert sample records.
 ```bash
-node models/init/index.js
+nodemon models/init/index.js
 ```
 
 ## Routes
@@ -64,7 +62,7 @@ node models/init/index.js
 - Model: `models/listModel.js`
 - View: `views/listings/index.ejs`
 - Controller: `controllers/listController.js`
-- Routes are mounted in `app.js` with `app.use('/list', listRoutes)`, so `router.get('/')` in `routes/listRoutes.js` resolves to `GET /list`.
+- Routing is defined directly in `app.js` (`app.get('/list', ...)`). There is no separate `routes/` module at the moment.
 
 
 

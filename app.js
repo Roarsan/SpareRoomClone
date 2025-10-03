@@ -4,9 +4,6 @@ const app = express();
 // Import database connection
 const connectDB = require("./config/database");
 
-// Import routes
-const listRoutes = require("./routes/listRoutes");
-
 // Connect to database
 connectDB();
 
@@ -18,7 +15,9 @@ app.get("/", (req, res) => {
   res.send("Welcome to SpareRoom Clone! <a href='/list'>View Listings</a>");
 });
 
-app.use("/list", listRoutes);
+const listController = require("./controllers/listController");
+
+app.get("/list", listController.getAllListings);
 
 // Start server
 const PORT = process.env.PORT || 8080;
