@@ -1,4 +1,4 @@
-# SpareRoom (MVC Express + Mongoose + EJS)
+# SpareRoom 
 
 A minimal SpareRoom-style listings app built with Express, Mongoose, and EJS, structured in a simple MVC pattern.
 
@@ -6,6 +6,12 @@ A minimal SpareRoom-style listings app built with Express, Mongoose, and EJS, st
 - Express 5 (routing, middleware)
 - Mongoose 8 (MongoDB ODM)
 - EJS (server-side templates)
+
+## MVC Notes
+- Model: `models/listModel.js`
+- View: `views/listings/index.ejs`
+- Controller: `controllers/listController.js`
+- Routing is defined directly in `app.js` (`app.get('/list', ...)`). There is no separate `routes/` module at the moment.
 
 ## Project Structure
 ```
@@ -25,9 +31,6 @@ SpareRoom/
         └── index.ejs      # Renders list of listings
 ```
 
-## Prerequisites
-- Node.js 18+
-- MongoDB running locally (or a connection string)
 
 ## Environment
 Optionally set a custom Mongo URL via `MONGO_URL` (defaults to `mongodb://127.0.0.1:27017/spare_room`).
@@ -35,7 +38,10 @@ Optionally set a custom Mongo URL via `MONGO_URL` (defaults to `mongodb://127.0.
 ```bash
 export MONGO_URL="mongodb://127.0.0.1:27017/spare_room"
 ```
-
+## Prerequisites
+- Node.js 18+
+- MongoDB running locally (or a connection string)
+  
 ## Install
 ```bash
 npm install
@@ -57,12 +63,9 @@ nodemon models/init/index.js
 ## Routes
 - `GET /` — Welcome page with link to listings
 - `GET /list` — Render all listings via EJS
+- `GET /list/:id` — Gets list details based on id and renders via EJS
 
-## MVC Notes
-- Model: `models/listModel.js`
-- View: `views/listings/index.ejs`
-- Controller: `controllers/listController.js`
-- Routing is defined directly in `app.js` (`app.get('/list', ...)`). There is no separate `routes/` module at the moment.
+
 
 
 
