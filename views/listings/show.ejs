@@ -6,13 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h3>Listings</h3>
-    <% for(let list of listings){ %>
+    <h3>List</h3>
     <ul>
-        <li>
-            <a href="/list/<%= list._id %>"><%= list.title %></a>
-          </li>
+
+           <li>  <%= list.title %></li>
+           <li>  <%= list.image %></li>
+           <li>  <%= list.price %></li>
+           <li>  <%= list.address %></li>
     </ul>
-    <% } %>
+   
 </body>
 </html>
