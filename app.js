@@ -11,6 +11,7 @@ connectDB();
 app.set("view engine", "ejs");
 
 // Routes
+
 app.get("/", (req, res) => {
   res.send("Welcome to SpareRoom Clone! <a href='/list'>View Listings</a>");
 });
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 const listController = require("./controllers/listController");
 
 app.get("/list", listController.getAllListings);
+app.get("/list/:id", listController.showListing);
 
 // Start server
 const PORT = process.env.PORT || 8080;
