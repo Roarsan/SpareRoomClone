@@ -23,6 +23,7 @@ app.post("/list", listController.createListing);
 app.get("/list/:id", listController.showListing);
 app.get("/list/:id/editlisting", listController.editListing);
 app.put("/list/:id", listController.updateListing);
+app.delete("/list/:id",listController.deleteListing)
 
 // Start server
 const PORT = process.env.PORT || 8080;
