@@ -13,13 +13,13 @@ const listController = {
   },
   // Get a single listing
   showListing: async (req, res) => {
-   try { 
-    const list = await ListModel.findById(req.params.id);
-    res.render('listings/listingDetail', { list });
-  } catch (error){
-    console.error('Error fetching listing:', error);
-    res.status(500).send("Error fetching listing");
-  }
+    try {
+      const list = await ListModel.findById(req.params.id);
+      res.render('listings/listingDetail', { list });
+    } catch (error) {
+      console.error('Error fetching listing:', error);
+      res.status(500).send("Error fetching listing");
+    }
   },
   // 🟢 Render "Create new listing" form
   newListing: async (req, res) => {
@@ -51,8 +51,8 @@ const listController = {
       const requestedList = await ListModel.findById(req.params.id);
 
       if (!requestedList) {
-       return res.status(404).send("Listing not found for editing.");
-        
+        return res.status(404).send("Listing not found for editing.");
+
       }
 
       res.render('listings/editlisting', { requestedList });
@@ -71,17 +71,17 @@ const listController = {
       res.status(500).send("Error updating listing");
     }
   },
-  deleteListing: async (req,res)=>{
+  deleteListing: async (req, res) => {
     try {
       let deletedListing = await ListModel.findByIdAndDelete(req.params.id);
-console.log(deletedListing);
-      res.redirect('/list'); 
+      console.log(deletedListing);
+      res.redirect('/list');
     } catch (error) {
       console.error("Error deleting listing:", error);
       res.status(500).send("Error deleting listing");
     }
   }
-  
+
 };
 
 module.exports = listController;
