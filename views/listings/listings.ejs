@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h3>Listings</h3>
-    <a href="/list/newlisting"><button>Create A New Listing</button> </a>
-    <% for(let list of listings){ %>
-    <ul>
-        <li>
-            <a href="/list/<%= list._id %>"><%= list.title %></a>
-          </li>
-    </ul>
-    <% } %>
+<%- include('../layouts/navbar') %>
+
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center fw-bold text-primary">Available Rooms</h2>
+
+    <div class="row g-4">
+      <% for (let list of listings) { %>
+        <div class="col-md-4 col-sm-6">
+          <a href="/list/<%= list._id %>" class="text-decoration-none text-dark">
+            <div class="card border-0 shadow-sm h-100 listing-card">
+              <img src="<%= list.image %>" class="card-img-top" alt="<%= list.title %>">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold"><%= list.title %></h5>
+                <p class="text-muted small mb-1"><%= list.address %></p>
+                <p class="fw-bold text-primary mb-2">£<%= list.price %> / month</p>
+                <p class="card-text text-secondary small"><%= list.description %></p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <%- include('../layouts/footer') %>
 </body>
-</html>

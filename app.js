@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
 
 // Import database and connect
 const connectDB = require("./config/connectDB");
@@ -17,6 +19,7 @@ app.use(methodOverride("_method"));
 app.get("/", (req, res) => {
   res.send("Welcome to SpareRoom Clone! <a href='/list'>View Listings</a>");
 });
+
 app.get("/list", listController.getAllListings);
 app.get("/list/newlisting", listController.newListing);
 app.post("/list", listController.createListing);
