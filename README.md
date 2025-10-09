@@ -47,7 +47,7 @@ npm install
 ## 🌱 Seed the Database (Sample Data)
 This will clear the `lists` collection and insert sample records.
 ```bash
-nodemon models/init/index.js
+nodemon models/init/initDB.js
 ```
 
 ## ▶️ Run the App
