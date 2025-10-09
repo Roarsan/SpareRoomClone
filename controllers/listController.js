@@ -50,7 +50,7 @@ const listController = {
     try {
       const requestedList = await ListModel.findById(req.params.id);
 
-      if (!reqList) {
+      if (!requestedList) {
        return res.status(404).send("Listing not found for editing.");
         
       }
@@ -69,6 +69,16 @@ const listController = {
     } catch (error) {
       console.error("Error updating listing:", error);
       res.status(500).send("Error updating listing");
+    }
+  },
+  deleteListing: async (req,res)=>{
+    try {
+      let deletedListing = await ListModel.findByIdAndDelete(req.params.id);
+console.log(deletedListing);
+      res.redirect('/list'); 
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+      res.status(500).send("Error deleting listing");
     }
   }
   
