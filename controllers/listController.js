@@ -31,7 +31,7 @@ const listController = {
     }
   },
 
-  // Handle new listing creation
+  // creates new list from submitted form
   createListing: async (req, res) => {
     try {
       const { title, image, address, price } = req.body;
@@ -48,14 +48,14 @@ const listController = {
   // Render "Edit listing" form
   editListing: async (req, res) => {
     try {
-      const list = await ListModel.findById(req.params.id);
+      const requestedList = await ListModel.findById(req.params.id);
 
-      if (!list) {
+      if (!reqList) {
        return res.status(404).send("Listing not found for editing.");
         
       }
 
-      res.render('listings/editlisting', { list });
+      res.render('listings/editlisting', { requestedList });
     } catch (error) {
       console.error('❌ Error fetching listing for edit:', error.message);
       res.status(500).send("Server error: unable to fetch listing for editing");
