@@ -1,25 +1,28 @@
 const express = require("express");
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
-// Import database connection
-const connectDB = require("./config/database");
-
-// Connect to database
+// Import database and connect
+const connectDB = require("./config/connectDB");
 connectDB();
 
 // Set view engine
 app.set("view engine", "ejs");
 
 // Routes
+const listController = require("./controllers/listController");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.send("Welcome to SpareRoom Clone! <a href='/list'>View Listings</a>");
 });
-
-const listController = require("./controllers/listController");
-
 app.get("/list", listController.getAllListings);
+app.get("/list/newlisting", listController.newListing);
+app.post("/list", listController.createListing);
 app.get("/list/:id", listController.showListing);
+app.get("/list/:id/editlisting", listController.editListing);
+app.put("/list/:id", listController.updateListing);
 
 // Start server
 const PORT = process.env.PORT || 8080;
