@@ -1,40 +1,26 @@
-const sampleData= [
+module.exports = {
+  data: [
+  
     {
-      list: "Apartment",
-      image: "https://example.com/apt1.jpg",
-      title: "Modern Apartment near Oxford University",
-      address: "12 High Street, Oxford",
-      price: 1200
+      image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
+      title: "Spacious Two-Bedroom Flat in Manchester",
+      address: "18 Deansgate, Manchester M3 3NW",
+      description: "Bright and spacious two-bedroom flat with modern interiors. 5 minutes from city centre and tram stop.",
+      price: 950
     },
     {
-      list: "House",
-      image: "https://example.com/house1.jpg",
-      title: "Spacious 3-Bedroom House with Garden",
-      address: "45 Cowley Road, Oxford",
-      price: 2000
+      image: "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80",
+      title: "Luxury Ensuite Room in Oxford",
+      address: "12 Oxford Road, Oxford OX1 2JD",
+      description: "Private ensuite room in a 3-bedroom shared flat. Bills included. Close to Oxford University and shops.",
+      price: 850
     },
     {
-      list: "Studio",
-      image: "https://example.com/studio1.jpg",
-      title: "Compact Studio for Students",
-      address: "78 Iffley Road, Oxford",
-      price: 800
-    },
-    {
-      list: "Shared Room",
-      image: "https://example.com/shared1.jpg",
-      title: "Shared Room in Friendly House",
-      address: "9 Botley Road, Oxford",
-      price: 600
-    },
-    {
-      list: "Penthouse",
-      image: "https://example.com/penthouse1.jpg",
-      title: "Luxury Penthouse with River View",
-      address: "21 Thames Street, Oxford",
-      price: 3500
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+      title: "Cozy Room with Balcony in Bristol",
+      address: "5 Clifton Hill, Bristol BS8 1BN",
+      description: "Bright room with private balcony and shared kitchen. Great city views and close to public transport.",
+      price: 780
     }
   ]
-
-  module.exports = {data:sampleData};
-  
+};

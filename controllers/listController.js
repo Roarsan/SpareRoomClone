@@ -34,8 +34,8 @@ const listController = {
   // creates new list from submitted form
   createListing: async (req, res) => {
     try {
-      const { title, image, address, price } = req.body;
-      const list = new ListModel({ title, image, address, price });
+      const { title, image, address, price, description } = req.body;
+      const list = new ListModel({ title, image, address, price, description });
       await list.save();
       res.redirect('/list');
     } catch (error) {
@@ -63,8 +63,8 @@ const listController = {
   },
   updateListing: async (req, res) => {
     try {
-      const { title, image, address, price } = req.body;
-      await ListModel.findByIdAndUpdate(req.params.id, { title, image, address, price });
+      const { title, image, address, price, description } = req.body;
+      await ListModel.findByIdAndUpdate(req.params.id, { title, image, address, price, description });
       res.redirect(`/list/${req.params.id}`);
     } catch (error) {
       console.error("Error updating listing:", error);
