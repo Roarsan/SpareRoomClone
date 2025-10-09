@@ -18,9 +18,48 @@ method-override — Support for PUT and DELETE HTTP methods
 
 CSS (custom) — Custom theme inspired by SpareRoom’s clean blue-and-white UI
 
+## 🧩 Features
+
+- View all listings
+
+- View a single listing with details
+
+- Create a new listing
+
+- Edit existing listing details
+
+- Delete a listing
+
+- Styled with Bootstrap and custom responsive CSS
+
+- Shared layout with partials (header and footer)
+
+- REST-like routes using method override
+
+## Prerequisites
+- Node.js 18+
+- MongoDB running locally (or a connection string)
+  
+## 🧰 Install
+```bash
+npm install
+```
+## 🌱 Seed the Database (Sample Data)
+This will clear the `lists` collection and insert sample records.
+```bash
+nodemon models/init/index.js
+```
+
+## ▶️ Run the App
+```bash
+nodemon app.js
+```
+
+Then open `http://localhost:8080`.
+
 ## MVC Notes
 - Model: `models/listModel.js`
-- View: `views/listings/index.ejs`
+- View: `views/listings & layouts`
 - Controller: `controllers/listController.js`
 - Routing is defined directly in `app.js` (`app.get('/list', ...)`). There is no separate `routes/` module at the moment.
 
@@ -50,53 +89,6 @@ SpareRoom/
         └── editlisting.ejs # Edit form
 ```
 
-
-## ⚙️ Environment
-Optionally set a custom Mongo URL via `MONGO_URL` (defaults to `mongodb://127.0.0.1:27017/spare_room`).
-
-To override:
-```bash
-export MONGO_URL="your-mongodb-uri"
-```
-## 🧩 Features
-
-- View all listings
-
-- View a single listing with details
-
-- Create a new listing
-
-- Edit existing listing details
-
-- Delete a listing
-
-- Styled with Bootstrap and custom responsive CSS
-
-- Shared layout with partials (header and footer)
-
-- REST-like routes using method override
-
-## Prerequisites
-- Node.js 18+
-- MongoDB running locally (or a connection string)
-  
-## 🧰 Install
-```bash
-npm install
-```
-
-## ▶️ Run the App
-```bash
-nodemon app.js
-```
-
-Then open `http://localhost:8080`.
-
-## 🌱 Seed the Database (Sample Data)
-This will clear the `lists` collection and insert sample records.
-```bash
-nodemon models/init/index.js
-```
 
 ## 🌐 Routes
 | Method | Route                   | Description               |
