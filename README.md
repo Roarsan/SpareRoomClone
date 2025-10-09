@@ -1,11 +1,22 @@
-# SpareRoom 
+# 🏠 SpareRoom Clone
 
-A minimal SpareRoom-style listings app built with Express, Mongoose, and EJS, structured in a simple MVC pattern.
+A simple property listings web app inspired by [SpareRoom.co.uk](https://www.spareroom.co.uk).  
+Built with **Express**, **Mongoose**, and **EJS**, following an MVC architecture and styled with **Bootstrap 5** and custom CSS.  
+Users can create, edit, and delete property listings.
 
-## Tech Stack
-- Express 5 (routing, middleware)
-- Mongoose 8 (MongoDB ODM)
-- EJS (server-side templates)
+
+## 🚀 Tech Stack
+Express.js 5 — Routing and middleware
+
+Mongoose 8 — MongoDB ODM
+
+EJS — Server-side templates
+
+Bootstrap 5 — Frontend layout and components
+
+method-override — Support for PUT and DELETE HTTP methods
+
+CSS (custom) — Custom theme inspired by SpareRoom’s clean blue-and-white UI
 
 ## MVC Notes
 - Model: `models/listModel.js`
@@ -13,7 +24,7 @@ A minimal SpareRoom-style listings app built with Express, Mongoose, and EJS, st
 - Controller: `controllers/listController.js`
 - Routing is defined directly in `app.js` (`app.get('/list', ...)`). There is no separate `routes/` module at the moment.
 
-## Project Structure
+## 🧱 Project Structure
 ```
 SpareRoom/
 ├── app.js                 # App entry: defines routes, sets view engine
@@ -21,49 +32,84 @@ SpareRoom/
 │   └── database.js        # Centralized Mongo connection
 ├── controllers/
 │   └── listController.js  # Controller (business logic)
+├── css/
+├── main.css
 ├── models/
 │   ├── listModel.js       # Mongoose model
 │   └── init/
 │       ├── index.js       # Seed script (clears + inserts sample data)
 │       └── sampleData.js  # Sample listings
 └── views/
+    ├── layouts/
+    │   ├── navbar.ejs      # Shared navbar
+    │   └── footer.ejs      # Shared footer
     └── listings/
-        └── index.ejs      # Renders list of listings
+        ├── listings.ejs    # Home page: all listings (grid)
+        ├── listingDetail.ejs # View single listing
+        ├── newlisting.ejs  # Create form
+        └── editlisting.ejs # Edit form
 ```
 
 
-## Environment
+## ⚙️ Environment
 Optionally set a custom Mongo URL via `MONGO_URL` (defaults to `mongodb://127.0.0.1:27017/spare_room`).
 
+To override:
 ```bash
-export MONGO_URL="mongodb://127.0.0.1:27017/spare_room"
+export MONGO_URL="your-mongodb-uri"
 ```
+## 🧩 Features
+
+- View all listings
+
+- View a single listing with details
+
+- Create a new listing
+
+- Edit existing listing details
+
+- Delete a listing
+
+- Styled with Bootstrap and custom responsive CSS
+
+- Shared layout with partials (header and footer)
+
+- REST-like routes using method override
+
 ## Prerequisites
 - Node.js 18+
 - MongoDB running locally (or a connection string)
   
-## Install
+## 🧰 Install
 ```bash
 npm install
 ```
 
-## Run the App
+## ▶️ Run the App
 ```bash
 nodemon app.js
 ```
 
 Then open `http://localhost:8080`.
 
-## Seed the Database (Sample Data)
+## 🌱 Seed the Database (Sample Data)
 This will clear the `lists` collection and insert sample records.
 ```bash
 nodemon models/init/index.js
 ```
 
-## Routes
-- `GET /` — Welcome page with link to listings
-- `GET /list` — Render all listings via EJS
-- `GET /list/:id` — Gets list details based on id and renders via EJS
+## 🌐 Routes
+| Method | Route                   | Description               |
+| ------ | ----------------------- | ------------------------- |
+| GET    | `/`                     | Welcome page              |
+| GET    | `/list`                 | Show all listings         |
+| GET    | `/list/newlisting`      | Show create form          |
+| POST   | `/list`                 | Create a new listing      |
+| GET    | `/list/:id`             | Show details of a listing |
+| GET    | `/list/:id/editlisting` | Edit a listing            |
+| PUT    | `/list/:id`             | Update listing            |
+| DELETE | `/list/:id`             | Delete listing            |
+
 
 
 
