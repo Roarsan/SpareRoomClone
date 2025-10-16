@@ -12,7 +12,7 @@ const listController = {
     }
   },
   // Get a single listing
-  showListing: async (req, res) => {
+  showListingDetails: async (req, res) => {
     try {
       const list = await ListModel.findById(req.params.id);
       res.render('listings/listingDetail', { list });
@@ -21,10 +21,10 @@ const listController = {
       res.status(500).send("Error fetching listing");
     }
   },
-  // 🟢 Render "Create new listing" form
+  // 🟢 Renders "Create listing" form
   newListing: async (req, res) => {
     try {
-      res.render('listings/newlisting');
+      res.render('listings/createlisting');
     } catch (error) {
       console.error('❌ Error rendering new listing form:', error.message);
       res.status(500).send("Unable to load new listing form.");
@@ -45,7 +45,7 @@ const listController = {
     }
   },
 
-  // Render "Edit listing" form
+  // Render "Update listing" form
   editListing: async (req, res) => {
     try {
       const requestedList = await ListModel.findById(req.params.id);
@@ -55,12 +55,13 @@ const listController = {
 
       }
 
-      res.render('listings/editlisting', { requestedList });
+      res.render('listings/updatelisting', { requestedList });
     } catch (error) {
       console.error('❌ Error fetching listing for edit:', error.message);
       res.status(500).send("Server error: unable to fetch listing for editing");
     }
   },
+  //Update an existing listing with submitted form data
   updateListing: async (req, res) => {
     try {
       const { title, image, address, price, description } = req.body;
@@ -71,6 +72,7 @@ const listController = {
       res.status(500).send("Error updating listing");
     }
   },
+  // Delete a listing by ID
   deleteListing: async (req, res) => {
     try {
       let deletedListing = await ListModel.findByIdAndDelete(req.params.id);
