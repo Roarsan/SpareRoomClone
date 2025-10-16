@@ -1,4 +1,4 @@
-<%- include('../layouts/navbar') %>
+<%- include('../partials/navbar') %>
 
 <div class="card mx-auto shadow-sm" style="max-width: 600px;">
   <img src="<%= list.image %>" class="card-img-top" alt="<%= list.title %>">
@@ -11,13 +11,13 @@
 </div>
 
 <div class="d-flex justify-content-center gap-3 mt-4">
-  <a href="/list/<%= list._id %>/editlisting" class="btn btn-outline-primary">Edit</a>
+  <a href="/list/<%= list._id %>/editlisting" class="btn btn-outline-primary">Update</a>
 
-  <form action="/list/<%= list._id %>?_method=DELETE" method="POST">
-    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to delete this listing?');">
-      Delete
-    </button>
-  </form>
+ <!-- Delete Button (Triggers Modal) -->
+<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+  Delete
+</button>
 </div>
 
-<%- include('../layouts/footer') %>
+<%- include('deletelisting', { list: list }) %>
+<%- include('../partials/footer') %>

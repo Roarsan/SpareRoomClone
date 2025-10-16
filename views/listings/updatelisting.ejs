@@ -1,6 +1,6 @@
-<%- include('../layouts/navbar') %>
+<%- include('../partials/navbar') %>
 
-<h3 class="mb-4">Edit Listing</h3>
+<h3 class="mb-4">Update Listing</h3>
 
 <form method="POST" action="/list/<%= requestedList._id %>?_method=PUT" class="p-3 bg-white rounded shadow-sm">
   <div class="mb-3">
@@ -31,4 +31,4 @@
   <button type="submit" class="btn btn-success w-100">Confirm Edit</button>
 </form>
 
-<%- include('../layouts/footer') %>
+<%- include('../partials/footer') %>

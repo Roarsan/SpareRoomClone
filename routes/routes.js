@@ -1,4 +1,4 @@
-// routes/listRoutes.js
+// routes/routes.js
 const express = require("express");
 const router = express.Router();
 const listController = require("../controllers/listController");
@@ -7,7 +7,7 @@ const listController = require("../controllers/listController");
 router.get("/", listController.getAllListings);
 router.get("/newlisting", listController.newListing);
 router.post("/createlisting", listController.createListing);
-router.get("/:id", listController.showListing);
+router.get("/:id", listController.showListingDetails);
 router.get("/:id/editlisting", listController.editListing);
 router.put("/:id", listController.updateListing);
 router.delete("/:id", listController.deleteListing);
