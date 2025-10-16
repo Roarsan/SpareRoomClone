@@ -19,33 +19,29 @@ method-override — Support for PUT and DELETE HTTP methods
 CSS (custom) — Custom theme inspired by SpareRoom’s clean blue-and-white UI
 
 ## 🧩 Features
-
 - View all listings
+- View single listing details
+- Create new listing
+- Edit listing
+- Delete listing
+- Responsive UI with Bootstrap + custom CSS
 
-- View a single listing with details
-
-- Create a new listing
-
-- Edit existing listing details
-
-- Delete a listing
-
-- Styled with Bootstrap and custom responsive CSS
-
-- Shared layout with partials (header and footer)
-
-- REST-like routes using method override
-
-## Prerequisites
+## ✅ Prerequisites
 - Node.js 18+
-- MongoDB running locally (or a connection string)
-  
+- MongoDB running locally (or supply a connection string)
+
+
+
+If unset, it falls back to `mongodb://127.0.0.1:27017/spare_room`.
+
 ## 🧰 Install
 ```bash
 npm install
 ```
-## 🌱 Seed the Database (Sample Data)
-This will clear the `lists` collection and insert sample records.
+
+## 🌱 Seed the database (sample data)
+This clears the collection and inserts a few sample listings.
+
 ```bash
 nodemon models/init/initDB.js
 ```
@@ -61,49 +57,49 @@ Then open `http://localhost:8080`.
 - Model: `models/listModel.js`
 - View: `views/listings & layouts`
 - Controller: `controllers/listController.js`
-- Routing is defined directly in `app.js` (`app.get('/list', ...)`). There is no separate `routes/` module at the moment.
+- Routing is defined in routes/routes.js
 
 ## 🧱 Project Structure
 ```
 SpareRoom/
-├── app.js                 # App entry: defines routes, sets view engine
+├── app.js
 ├── config/
-│   └── database.js        # Centralized Mongo connection
+│   └── connectDB.js
 ├── controllers/
-│   └── listController.js  # Controller (business logic)
-├── css/
-├── main.css
+│   └── listController.js
 ├── models/
-│   ├── listModel.js       # Mongoose model
+│   ├── listModel.js
 │   └── init/
-│       ├── index.js       # Seed script (clears + inserts sample data)
-│       └── sampleData.js  # Sample listings
+│       ├── initDB.js
+│       └── sampleData.js
+├── public/
+│   └── main.css (and other assets)
+├── routes/
+│   └── routes.js
 └── views/
-    ├── layouts/
-    │   ├── navbar.ejs      # Shared navbar
-    │   └── footer.ejs      # Shared footer
+    ├── partials/
+    │   ├── navbar.ejs
+    │   └── footer.ejs
     └── listings/
-        ├── listings.ejs    # Home page: all listings (grid)
-        ├── listingDetail.ejs # View single listing
-        ├── newlisting.ejs  # Create form
-        └── editlisting.ejs # Edit form
+        ├── listings.ejs       # All listings grid
+        ├── listingDetail.ejs  # Single listing page
+        ├── createlisting.ejs  # Create form
+        ├── updatelisting.ejs  # Edit form
+        └── deletelisting.ejs  # (Optional) delete confirmation
 ```
 
-
 ## 🌐 Routes
-| Method | Route                   | Description               |
-| ------ | ----------------------- | ------------------------- |
-| GET    | `/`                     | Welcome page              |
-| GET    | `/list`                 | Show all listings         |
-| GET    | `/list/newlisting`      | Show create form          |
-| POST   | `/list`                 | Create a new listing      |
-| GET    | `/list/:id`             | Show details of a listing |
-| GET    | `/list/:id/editlisting` | Edit a listing            |
-| PUT    | `/list/:id`             | Update listing            |
-| DELETE | `/list/:id`             | Delete listing            |
+| Method | Route                      | Handler                         | Description                 |
+| ------ | -------------------------- | --------------------------------| --------------------------- |
+| GET    | `/`                        | inline in `app.js`              | Welcome page                |
+| GET    | `/list`                    | `getAllListings`                | Show all listings           |
+| GET    | `/list/newlisting`         | `newListing`                    | Show create form            |
+| POST   | `/list/createlisting`      | `createListing`                 | Create a new listing        |
+| GET    | `/list/:id`                | `showListingDetails`            | Show listing details        |
+| GET    | `/list/:id/editlisting`    | `editListing`                   | Show edit form              |
+| PUT    | `/list/:id`                | `updateListing`                 | Update listing              |
+| DELETE | `/list/:id`                | `deleteListing`                 | Delete listing              |
 
 
 
-
-
-
+---
