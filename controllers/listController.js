@@ -1,5 +1,4 @@
 const ListModel = require('../models/listModel');
-const ExpressError = require('../utils/ExpressError');
 
 const listController = {
   // Get all listings
@@ -22,12 +21,6 @@ const listController = {
   // Create new listing
   createListing: async (req, res) => {
     const { title, image, address, price, description } = req.body;
-    
-    // Validate required fields
-    if (!title || !image || !address || !price || !description) {
-      throw new ExpressError(400, "All fields are required");
-    }
-    
     const list = new ListModel({ title, image, address, price, description });
     await list.save();
     res.redirect('/list');
