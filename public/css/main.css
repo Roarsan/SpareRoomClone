@@ -1,168 +1,167 @@
 /* 🌤 General page styling */
 body {
-    font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* 🔹 Headings */
-  h1, h2, h3, h4, h5 {
-    font-weight: 600;
-    color: #004a99; /* deep SpareRoom blue */
-  }
-  
-  h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  /* 🧭 Navbar */
-  .navbar {
-    border-bottom: 1px solid #eaeaea;
-    background-color: #fff !important;
-  }
-  
-  .navbar-brand {
-    font-size: 1.4rem;
-    color: #004a99 !important;
-  }
-  
-  .nav-link {
-    color: #444 !important;
-    font-weight: 500;
-    margin-right: 1rem;
-  }
-  
-  .nav-link:hover {
-    color: #0073e6 !important;
-  }
-  
-  /* 🏡 Listings grid */
-  .container {
-    max-width: 1200px;
-  }
-  
-  .row {
-    margin-top: 1rem;
-  }
-  
-  .listing-card {
-    border-radius: 10px;
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid #e5e8eb;
-    transition: all 0.3s ease;
-    height: 100%;
-  }
-  
-  .listing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  }
-  
-  /* 🖼 Image inside the card */
-  .card-img-top {
-    height: 220px;
-    object-fit: cover;
-    border-bottom: 1px solid #eee;
-  }
-  
-  /* 🧾 Card content */
-  .card-body {
-    padding: 1rem 1.25rem;
-  }
-  
-  .card-title {
-    font-size: 1.05rem;
-    color: #222;
-    margin-bottom: 0.3rem;
-  }
-  
-  .card-text {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.4;
-  }
-  
-  /* 💷 Price */
-  .text-primary {
-    color: #0073e6 !important;
-    font-weight: 600;
-    font-size: 1rem;
-  }
-  
-  /* 🏷 Address */
-  .text-muted {
-    font-size: 0.85rem;
-  }
-  
-  /* 🧩 Buttons */
-  .btn {
-    border-radius: 8px;
-    font-weight: 500;
-    padding: 0.6rem 1.2rem;
-  }
-  
-  .btn-primary {
-    background-color: #0073e6;
-    border: none;
-  }
-  
-  .btn-primary:hover {
-    background-color: #005bb5;
-  }
-  
-  .btn-outline-primary {
-    color: #0073e6;
-    border-color: #0073e6;
-  }
-  
-  .btn-outline-primary:hover {
-    background-color: #0073e6;
-    color: #fff;
-  }
-  
-  /* 🧱 Forms (Create/Edit) */
-  form {
-    background: #fff;
-    border-radius: 10px;
-    padding: 2rem;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  form label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  form input, form textarea {
-    border-radius: 8px;
-    border: 1px solid #ccd3db;
-    padding: 0.6rem;
-    width: 100%;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-  
-  form input:focus, form textarea:focus {
-    border-color: #0073e6;
-    outline: none;
-    box-shadow: 0 0 4px rgba(0, 115, 230, 0.2);
-  }
-  
-  /* 🦶 Footer */
-  footer {
-    background-color: #fff;
-    color: #666;
-    font-size: 0.9rem;
-    border-top: 1px solid #eaeaea;
-  }
-  
-  footer small {
-    color: #666;
-  }
-  
+  font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🔹 Headings */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 600;
+  color: #004a99;
+  /* deep SpareRoom blue */
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 🧭 Navbar */
+.navbar {
+  border-bottom: 1px solid #eaeaea;
+  background-color: #fff !important;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  color: #004a99 !important;
+}
+
+.nav-link {
+  color: #444 !important;
+  font-weight: 500;
+  margin-right: 1rem;
+}
+
+.nav-link:hover {
+  color: #0073e6 !important;
+}
+
+/* 🏡 Listings grid */
+.container {
+  max-width: 1200px;
+}
+
+.row {
+  margin-top: 1rem;
+}
+
+.listing-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e5e8eb;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 🖼 Image inside the card */
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+/* 🧾 Card content */
+.card-body {
+  padding: 1rem 1.25rem;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  color: #222;
+  margin-bottom: 0.3rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 🏷 Address */
+.text-muted {
+  font-size: 0.85rem;
+}
+
+/* 🧩 Buttons */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+}
+
+.btn-primary {
+  background-color: #0073e6;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #005bb5;
+}
+
+.btn-outline-primary {
+  color: #0073e6;
+  border-color: #0073e6;
+}
+
+.btn-outline-primary:hover {
+  background-color: #0073e6;
+  color: #fff;
+}
+
+/* 🧱 Forms (Create/Edit) */
+form {
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+form input,
+form textarea {
+  border-radius: 8px;
+  border: 1px solid #ccd3db;
+  padding: 0.6rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #0073e6;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 115, 230, 0.2);
+}
+
+/* 🦶 Footer */
+footer {
+  background-color: #fff;
+  color: #666;
+  font-size: 0.9rem;
+  border-top: 1px solid #eaeaea;
+}
+
+footer small {
+  color: #666;
+}
