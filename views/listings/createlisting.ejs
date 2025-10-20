@@ -2,10 +2,11 @@
 
 <h3 class="mb-4">Create a New Listing</h3>
 
-<form action="/list" method="POST" class="p-3 bg-white rounded shadow-sm">
+<form action="/list/createlisting" method="POST" class="p-3 bg-white rounded shadow-sm needs-validation" novalidate>
+
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
-    <input type="text" name="title" id="title" class="form-control" placeholder="A Title For Your Advertisement">
+    <input type="text" name="title" id="title" class="form-control" placeholder="A Title For Your Advertisement" required>
   </div>
 
   <div class="mb-3">
@@ -15,12 +16,12 @@
 
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" id="address" class="form-control">
+    <input type="text" name="address" id="address" class="form-control" required>
   </div>
 
   <div class="mb-3">
     <label for="price" class="form-label">Price (£)</label>
-    <input type="number" name="price" id="price" class="form-control">
+    <input  name="price" id="price" class="form-control" required>
   </div>
 
   <div class="mb-3">
@@ -30,5 +31,6 @@
 
   <button type="submit" class="btn btn-primary w-100">Create Listing</button>
 </form>
+
 
 <%- include('../partials/footer') %>

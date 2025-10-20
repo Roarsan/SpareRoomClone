@@ -1,89 +1,58 @@
 const ListModel = require('../models/listModel');
+const ExpressError = require('../utils/ExpressError');
 
 const listController = {
   // Get all listings
   getAllListings: async (req, res) => {
-    try {
-      const listings = await ListModel.find();
-      res.render('listings/listings', { listings });
-    } catch (error) {
-      console.error('Error fetching listings:', error);
-      res.status(500).send("Error fetching listings");
-    }
+    const listings = await ListModel.find();
+    res.render('listings/listings', { listings });
   },
+
   // Get a single listing
   showListingDetails: async (req, res) => {
-    try {
-      const list = await ListModel.findById(req.params.id);
-      res.render('listings/listingDetail', { list });
-    } catch (error) {
-      console.error('Error fetching listing:', error);
-      res.status(500).send("Error fetching listing");
-    }
+    const list = await ListModel.findById(req.params.id);
+    res.render('listings/listingDetail', { list });
   },
-  // 🟢 Renders "Create listing" form
+
+  // Render "Create listing" form
   newListing: async (req, res) => {
-    try {
-      res.render('listings/createlisting');
-    } catch (error) {
-      console.error('❌ Error rendering new listing form:', error.message);
-      res.status(500).send("Unable to load new listing form.");
-    }
+    res.render('listings/createlisting');
   },
 
-  // creates new list from submitted form
+  // Create new listing
   createListing: async (req, res) => {
-    try {
-      const { title, image, address, price, description } = req.body;
-      const list = new ListModel({ title, image, address, price, description });
-      await list.save();
-      res.redirect('/list');
-    } catch (error) {
-      console.error('❌ Error creating listing:', error.message);
-      res.status(400).send("Invalid input or server error while creating listing.");
-
+    const { title, image, address, price, description } = req.body;
+    
+    // Validate required fields
+    if (!title || !image || !address || !price || !description) {
+      throw new ExpressError(400, "All fields are required");
     }
+    
+    const list = new ListModel({ title, image, address, price, description });
+    await list.save();
+    res.redirect('/list');
   },
 
   // Render "Update listing" form
   editListing: async (req, res) => {
-    try {
-      const requestedList = await ListModel.findById(req.params.id);
-
-      if (!requestedList) {
-        return res.status(404).send("Listing not found for editing.");
-
-      }
-
-      res.render('listings/updatelisting', { requestedList });
-    } catch (error) {
-      console.error('❌ Error fetching listing for edit:', error.message);
-      res.status(500).send("Server error: unable to fetch listing for editing");
-    }
+    const requestedList = await ListModel.findById(req.params.id);
+    res.render('listings/updatelisting', { requestedList });
   },
-  //Update an existing listing with submitted form data
+
+  // Update listing
   updateListing: async (req, res) => {
-    try {
-      const { title, image, address, price, description } = req.body;
-      await ListModel.findByIdAndUpdate(req.params.id, { title, image, address, price, description });
-      res.redirect(`/list/${req.params.id}`);
-    } catch (error) {
-      console.error("Error updating listing:", error);
-      res.status(500).send("Error updating listing");
-    }
+    const { title, image, address, price, description } = req.body;
+    await ListModel.findByIdAndUpdate(req.params.id, {
+      title, image, address, price, description
+    });
+    res.redirect(`/list/${req.params.id}`);
   },
-  // Delete a listing by ID
-  deleteListing: async (req, res) => {
-    try {
-      let deletedListing = await ListModel.findByIdAndDelete(req.params.id);
-      console.log(deletedListing);
-      res.redirect('/list');
-    } catch (error) {
-      console.error("Error deleting listing:", error);
-      res.status(500).send("Error deleting listing");
-    }
-  }
 
+  // Delete listing
+  deleteListing: async (req, res) => {
+    await ListModel.findByIdAndDelete(req.params.id);
+    res.redirect('/list');
+  }
 };
 
 module.exports = listController;
