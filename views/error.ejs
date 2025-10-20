@@ -1,0 +1,29 @@
+<%- include('partials/navbar') %>
+
+<div class="row justify-content-center">
+  <div class="col-lg-8 col-md-10">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4">
+        <div class="d-flex align-items-start gap-3">
+          <div class="text-danger fs-1 lh-1">⚠️</div>
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Error <%= err.statusCode || 500 %></span>
+            </div>
+            <div class="alert alert-danger mb-3" role="alert">
+              <%= err.message || 'An unexpected error occurred.' %>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="/" class="btn btn-primary">Go Home</a>
+              <a href="/list" class="btn btn-outline-primary">View Listings</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+

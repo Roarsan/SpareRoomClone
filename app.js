@@ -3,7 +3,7 @@ const app = express();
 const methodOverride = require("method-override");
 const connectDB = require("./config/connectDB");
 const routes = require("./routes/routes.js");
-
+const ExpressError = require('./utils/ExpressError');
 // Connect to MongoDB
 connectDB();
 
@@ -23,10 +23,15 @@ app.get("/", (req, res) => {
 
 app.use("/list", routes);
 
+// 404 handler
+app.all(/.*/, (req, res, next) => {
+  next(new ExpressError(404, 'Page not found'));
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
-  res.status(500).send("Something went wrong!");
+  const { statusCode = 500, message = 'Something went wrong' } = err;
+  res.status(statusCode).render('error', {err});
 });
 
 // Start server
