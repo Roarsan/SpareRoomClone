@@ -1,4 +1,5 @@
 const ListModel = require('../models/listModel');
+const ExpressError = require('../utils/ExpressError');
 
 const listController = {
   // Get all listings
@@ -22,6 +23,9 @@ const listController = {
   createListing: async (req, res) => {
     const { title, image, address, price, description } = req.body;
     const list = new ListModel({ title, image, address, price, description });
+    if(!req.body.list){
+      throw new ExpressError(400,"send valid data");
+    }
     await list.save();
     res.redirect('/list');
   },
