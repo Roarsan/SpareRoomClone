@@ -13,8 +13,11 @@ Visit `http://localhost:8080` after running the application to see the live demo
 - **Node.js 18+** — JavaScript runtime
 - **Express.js 5.1.0** — Web framework and routing
 - **Mongoose 8.18.0** — MongoDB ODM for database operations
+- **express-session 1.18.2** — Session management
+- **connect-mongo 5.1.0** — MongoDB session store
 - **method-override 3.0.0** — Support for PUT and DELETE HTTP methods
 - **Joi 18.0.1** — Data validation and schema validation
+- **dotenv 17.2.3** — Environment variable management
 
 ### Frontend
 - **EJS 3.1.10** — Server-side templating engine
@@ -34,6 +37,8 @@ Visit `http://localhost:8080` after running the application to see the live demo
 - ✅ **Create New Listing** — Add properties with form validation
 - ✅ **Edit Listing** — Update existing property information
 - ✅ **Delete Listing** — Remove properties with confirmation
+- ✅ **Session Management** — Secure session handling with MongoDB store
+- ✅ **Environment Configuration** — Secure environment variable management
 - ✅ **Responsive Design** — Mobile-first Bootstrap layout
 - ✅ **Error Handling** — Comprehensive error management
 - ✅ **Input Validation** — Server-side validation with Joi
@@ -68,14 +73,23 @@ cd SpareRoom
 npm install
 ```
 
-### 2. Database Setup
+### 2. Environment Setup
+Create a `.env` file in the root directory:
+```bash
+PORT=8080
+MONGO_URL=mongodb://127.0.0.1:27017/spare_room
+SESSION_SECRET=your-super-secret-session-key-change-this-in-production
+NODE_ENV=development
+```
+
+### 3. Database Setup
 This clears the collection and inserts a few sample listings.
 ```bash
 # Seed the database with sample data
 nodemon models/init/initDB.js
 ```
 
-### 3. Start the Application
+### 4. Start the Application
 ```bash
 # Development mode with auto-restart
 nodemon app.js
@@ -84,7 +98,7 @@ nodemon app.js
 node app.js
 ```
 
-### 4. Access the Application
+### 5. Access the Application
 Open your browser and navigate to: `http://localhost:8080`
 
 ## 🗄️ Database Schema
@@ -126,9 +140,12 @@ The application comes with 3 sample listings:
 ```
 SpareRoom/
 ├── app.js                    # Main application entry point
+├── .env                      # Environment variables (not in git)
+├── .gitignore               # Git ignore rules
 ├── package.json              # Dependencies and scripts
 ├── config/
-│   └── connectDB.js         # MongoDB connection configuration
+│   ├── connectDB.js         # MongoDB connection configuration
+│   └── session.js           # Session configuration
 ├── controllers/
 │   └── listController.js     # Business logic for listing operations
 ├── models/
@@ -207,6 +224,8 @@ SpareRoom/
 ```bash
 PORT=8080                                    # Server port
 MONGO_URL=mongodb://127.0.0.1:27017/spare_room  # MongoDB connection
+SESSION_SECRET=your-super-secret-session-key-change-this-in-production  # Session secret
+NODE_ENV=development                         # Environment mode
 ```
 
 ### Development Scripts
