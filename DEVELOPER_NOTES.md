@@ -5,12 +5,15 @@ A modern property listings web application inspired by SpareRoom.co.uk, built wi
 
 ## 🏗️ Architecture & Tech Stack
 
-### Backend Technologies
-- **Node.js 18+** - JavaScript runtime environment
-- **Express.js 5.1.0** - Web framework and routing
-- **Mongoose 8.18.0** - MongoDB ODM for database operations
-- **method-override 3.0.0** - Enables PUT/DELETE methods via HTML forms
-- **Joi 18.0.1** - Data validation and schema validation
+### Backend
+- **Node.js 18+** - JavaScript runtime
+- **Express.js 5.1.0** - Web framework
+- **Mongoose 8.18.0** - MongoDB ODM
+- **express-session 1.18.2** - Session management
+- **connect-mongo 5.1.0** - MongoDB session store
+- **method-override 3.0.0** - PUT/DELETE support
+- **Joi 18.0.1** - Data validation
+- **dotenv 17.2.3** - Environment variables
 
 ### Frontend Technologies
 - **EJS 3.1.10** - Server-side templating engine
@@ -19,31 +22,28 @@ A modern property listings web application inspired by SpareRoom.co.uk, built wi
 - **Vanilla JavaScript** - Form validation and client-side interactions
 
 ### Database
-- **MongoDB** - NoSQL database for storing property listings
+- **MongoDB** - NoSQL database
 - **Default Connection**: `mongodb://127.0.0.1:27017/spare_room`
-- **Sample Data**: 3 pre-populated property listings
 
 ## 📁 Project Structure
 
 ```
 SpareRoom/
 ├── app.js                    # Main application entry point
+├── .env                      # Environment variables
 ├── config/
-│   └── connectDB.js         # MongoDB connection configuration
+│   ├── connectDB.js         # MongoDB connection
+│   └── session.js           # Session configuration
 ├── controllers/
 │   └── listController.js     # Business logic for listing operations
 ├── models/
-│   ├── listModel.js         # Mongoose schema definition
-│   └── init/
-│       ├── initDB.js        # Database initialization script
-│       └── sampleData.js    # Sample property data
-├── public/
-│   ├── css/
-│   │   └── main.css         # Custom styling
-│   └── js/
-│       └── script.js        # Client-side JavaScript
+│   ├── listModel.js         # Mongoose schema
+│   └── init/                # Database initialization
+├── public/                  # Static assets
 ├── routes/
 │   └── routes.js            # Route definitions
+├── schemas/
+│   └── schema.js            # Joi validation
 ├── utils/
 │   ├── ExpressError.js      # Custom error class
 │   └── wrapAsync.js         # Async error handling wrapper
@@ -69,17 +69,11 @@ SpareRoom/
   title: String (required)    // Property title
   address: String (required)  // Property address
   description: String (required) // Property description
-  price: Number (required, min: 0) // Monthly rent price
-  createdAt: Date (auto-generated) // Creation timestamp
-  updatedAt: Date (auto-generated) // Last update timestamp
+  price: Number (required, min: 0) // Monthly rent
+  createdAt: Date (auto)      // Creation timestamp
+  updatedAt: Date (auto)      // Update timestamp
 }
 ```
-
-### Sample Data Structure
-The application includes 3 sample listings:
-1. **Manchester Flat**: Spacious Two-Bedroom Flat (£950/month)
-2. **Oxford Room**: Luxury Ensuite Room (£850/month)  
-3. **Bristol Room**: Cozy Room with Balcony (£780/month)
 
 ## 🛣️ API Routes
 
@@ -103,20 +97,11 @@ The application includes 3 sample listings:
 - **404 Handler**: Catches undefined routes and redirects to error page
 - **Validation Errors**: Joi schema validation with detailed error messages
 
-### Middleware Stack
-1. `express.urlencoded()` - Parse form data
-2. `express.json()` - Parse JSON bodies
-3. `express.static()` - Serve static files
-4. `methodOverride()` - Enable PUT/DELETE methods
-5. Route handlers with validation
-6. 404 handler
-7. Global error handler
+### Session Management
+- **MongoDB Store**: Sessions persisted in MongoDB
+- **Security**: HttpOnly cookies, secure session secrets
+- **Configuration**: 7-day session duration, custom session name
 
-### Database Operations
-- **Connection**: Automatic MongoDB connection on app startup with error handling
-- **Sample Data**: Pre-populated with 3 sample listings via initDB.js
-- **CRUD Operations**: Full Create, Read, Update, Delete functionality
-- **Validation**: Mongoose schema validation with required fields and constraints
 
 ### Input Validation
 - **Joi Schemas**: Server-side validation for all form inputs
@@ -156,23 +141,28 @@ The application includes 3 sample listings:
 
 ### Installation Steps
 ```bash
-# Clone repository
+# Clone and install
 git clone <repository-url>
 cd SpareRoom
-
-# Install dependencies
 npm install
 
-# Seed database with sample data
+# Environment setup
+cp .env.example .env  # Update with your values
+
+# Database setup
 nodemon models/init/initDB.js
 
-# Start development server
+# Start development
 nodemon app.js
 ```
 
 ### Environment Variables
-- `PORT`: Server port (default: 8080)
-- `MONGO_URL`: MongoDB connection string (default: mongodb://127.0.0.1:27017/spare_room)
+```bash
+PORT=8080
+MONGO_URL=mongodb://127.0.0.1:27017/spare_room
+SESSION_SECRET=your-super-secret-session-key-change-this-in-production
+NODE_ENV=development
+```
 
 ### Development Workflow
 1. **Database Setup**: Run initDB.js to populate with sample data
@@ -180,7 +170,11 @@ nodemon app.js
 3. **Access Application**: Navigate to http://localhost:8080
 4. **Test Features**: Verify all CRUD operations work correctly
 
-## 🔍 Code Quality & Patterns
+### Current Security
+- **Session Security**: HttpOnly cookies, secure secrets
+- **Input Validation**: Joi schema validation
+- **Error Handling**: Prevents information leakage
+- **Environment Variables**: Secure configuration management
 
 ### MVC Architecture Implementation
 - **Model**: `listModel.js` - Mongoose schema with validation and timestamps
@@ -286,100 +280,34 @@ nodemon app.js
 - **Playwright/Cypress**: End-to-end testing frameworks
 
 ### Test Coverage Goals
-- **Controllers**: 100% coverage for all CRUD operations
-- **Models**: Test schema validation and database operations
-- **Routes**: Test all API endpoints and error handling
-- **Utilities**: Test error handling and validation functions
+- Controllers: 100% CRUD operations
+- Models: Schema validation
+- Routes: All endpoints
+- Utilities: Error handling
 
-## 🚀 Deployment Considerations
+## 🚀 Deployment
 
-### Production Checklist
-- [ ] Set up environment variables with dotenv
-- [ ] Configure MongoDB Atlas or production database
-- [ ] Set up process manager (PM2) for Node.js
-- [ ] Configure reverse proxy (Nginx) for static files
-- [ ] Set up SSL certificates with Let's Encrypt
-- [ ] Configure logging and monitoring with Winston
-- [ ] Set up CI/CD pipeline with GitHub Actions
-- [ ] Implement health checks and monitoring
-- [ ] Set up backup strategy for MongoDB
-- [ ] Configure rate limiting and security headers
 
-### Docker Configuration
-Consider adding Docker support for containerized deployment:
-```dockerfile
-# Dockerfile example
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-EXPOSE 8080
-CMD ["npm", "start"]
-```
-
-### Environment Configuration
-```bash
-# Production environment variables
-NODE_ENV=production
-PORT=8080
-MONGO_URL=mongodb://username:password@host:port/database
-JWT_SECRET=your-secret-key
-REDIS_URL=redis://localhost:6379
-```
 
 ## 📝 Development Guidelines
 
-### Code Style Standards
-- **Indentation**: Use 2 spaces for consistent formatting
-- **ES6+ Features**: Use modern JavaScript features (async/await, arrow functions)
-- **Naming Conventions**: Use meaningful variable and function names
-- **Comments**: Add comments for complex logic and business rules
-- **Error Handling**: Always handle errors gracefully with proper messages
+### Code Standards
+- 2-space indentation
+- ES6+ features (async/await, arrow functions)
+- Meaningful variable names
+- Comments for complex logic
+- Graceful error handling
 
 ### Git Workflow
-- **Feature Branches**: Use feature branches for new development
-- **Commit Messages**: Write descriptive commit messages following conventional commits
-- **Atomic Commits**: Keep commits focused and atomic
-- **Pull Requests**: Use pull requests for code review and collaboration
-- **Branch Protection**: Protect main branch with required reviews
-
-### Documentation Standards
-- **README.md**: Keep updated with setup instructions and features
-- **API Documentation**: Document all endpoints with examples
-- **Code Comments**: Add inline comments for complex functions
-- **Developer Notes**: Maintain this file with technical details
-- **Changelog**: Keep track of changes and version updates
-
-## 🔄 Version History
-
-### v1.0.0 (Current)
-- ✅ Complete CRUD operations for property listings
-- ✅ Responsive UI with Bootstrap 5
-- ✅ Error handling and validation
-- ✅ MongoDB integration with sample data
-- ✅ Clean MVC architecture
-
-### Future Versions
-- **v1.1.0**: User authentication and authorization
-- **v1.2.0**: Image upload and file management
-- **v1.3.0**: Search and filtering functionality
-- **v1.4.0**: Pagination and performance optimizations
-- **v2.0.0**: Real-time features and advanced UI
+- Feature branches for development
+- Descriptive commit messages
+- Atomic commits
+- Pull requests for review
+- Branch protection on main
 
 ---
 
-## 📞 Support & Contact
-
-For questions or issues related to this project:
-- **Documentation**: Check README.md for basic setup and features
-- **Technical Details**: Refer to this developer notes file
-- **Bug Reports**: Open issues on GitHub with detailed descriptions
-- **Feature Requests**: Submit feature requests with use cases
-- **Code Review**: Submit pull requests for improvements
-
-**Last Updated**: December 2024  
 **Version**: 1.0.0  
-**Branch**: main  
+**Last Updated**: December 2024  
 **Node.js**: 18+  
 **MongoDB**: Latest
