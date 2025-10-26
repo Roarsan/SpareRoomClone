@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const methodOverride = require("method-override");
 const connectDB = require("./config/connectDB");
 const routes = require("./routes/routes.js");
 const ExpressError = require('./utils/ExpressError');
+const setupSession = require('./config/session');
 // Connect to MongoDB
 connectDB();
 
@@ -15,6 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
+
+// Sessions
+setupSession(app);
+
 
 // Routes
 app.get("/", (req, res) => {
@@ -35,7 +41,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`🚀 Server listening on port ${PORT}`);
 });
