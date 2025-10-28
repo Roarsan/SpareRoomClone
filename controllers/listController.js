@@ -1,52 +1,68 @@
-const ListModel = require('../models/listModel');
-const ExpressError = require('../utils/ExpressError');
+// controllers/listController.js
+const listService = require('../services/listService');
 
 const listController = {
   // Get all listings
   getAllListings: async (req, res) => {
-    const listings = await ListModel.find();
+    const listings = await listService.getAllListings();
     res.render('listings/listings', { listings });
   },
 
   // Get a single listing
   showListingDetails: async (req, res) => {
-    const list = await ListModel.findById(req.params.id);
+    const list = await listService.getListingById(req.params.id);
     res.render('listings/listingDetail', { list });
   },
 
   // Render "Create listing" form
-  newListing: async (req, res) => {
+  newListing: (req, res) => {
     res.render('listings/createlisting');
   },
 
   // Create new listing
   createListing: async (req, res) => {
+    console.log(req.body);
+
     const { title, image, address, price, description } = req.body;
-    const list = new ListModel({ title, image, address, price, description });
-    await list.save();
-    res.redirect('/list');
+    await listService.createListing({
+      title,
+      image,
+      address,
+      price,
+      description,
+      owner: req.session.userId,
+    });
+
+    req.flash("success", "Listing created successfully!");
+    res.redirect('/list/listing');
   },
 
   // Render "Update listing" form
   editListing: async (req, res) => {
-    const requestedList = await ListModel.findById(req.params.id);
+    const requestedList = await listService.getListingById(req.params.id);
     res.render('listings/updatelisting', { requestedList });
   },
 
   // Update listing
   updateListing: async (req, res) => {
     const { title, image, address, price, description } = req.body;
-    await ListModel.findByIdAndUpdate(req.params.id, {
-      title, image, address, price, description
+    await listService.updateListing(req.params.id, {
+      title,
+      image,
+      address,
+      price,
+      description,
     });
+    req.flash("success", "Listing updated successfully!");
     res.redirect(`/list/${req.params.id}`);
   },
 
   // Delete listing
   deleteListing: async (req, res) => {
-    await ListModel.findByIdAndDelete(req.params.id);
-    res.redirect('/list');
-  }
+    await listService.deleteListing(req.params.id);
+    req.flash("success", "Listing deleted successfully!");
+    res.redirect('/list/listing');
+  },
 };
 
 module.exports = listController;
