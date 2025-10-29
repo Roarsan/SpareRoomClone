@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../controllers/authController");
 const wrapAsync = require("../utils/wrapAsync");
+const validate = require("../middleware/validateSchema");
 const userSchema = require("../schemas/userSchema");
-const validate = require('../utils/validateSchema');
 
 
 router.get("/register", auth.renderRegister);

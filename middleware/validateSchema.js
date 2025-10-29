@@ -1,4 +1,4 @@
-const ExpressError = require('./ExpressError');
+const ExpressError = require('../utils/ExpressError');
 
 module.exports = (schema) => {
   return (req, res, next) => {
