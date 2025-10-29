@@ -21,8 +21,6 @@ const listController = {
 
   // Create new listing
   createListing: async (req, res) => {
-    console.log(req.body);
-
     const { title, image, address, price, description } = req.body;
     await listService.createListing({
       title,

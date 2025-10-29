@@ -1,7 +1,7 @@
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-function setSession(app){
+function setupSession(app){
   const store = MongoStore.create({
     mongoUrl: process.env.MONGO_URL,
     touchAfter: 24 * 3600, 
@@ -22,4 +22,4 @@ function setSession(app){
 };
  
 
-module.exports =setSession;
+module.exports = setupSession;
