@@ -1,6 +1,14 @@
 const List = require("../models/listModel");
 
-module.exports = async function isOwner(req, res, next) {
+module.exports.isLoggedIn = function isLoggedIn(req, res, next) {
+    if (!req.session || !req.session.userId) {
+      req.flash("error", "You must be signed in!");
+      return res.redirect("/auth/login");
+    }
+    next();
+};
+
+module.exports.isOwner = async function isOwner(req, res, next) {
     const { id } = req.params;
     const list = await List.findById(id);
 
@@ -10,5 +18,4 @@ module.exports = async function isOwner(req, res, next) {
     }
     // User is authorized, continue
     next();
-
 };
