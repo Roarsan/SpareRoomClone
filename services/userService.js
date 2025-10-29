@@ -13,13 +13,10 @@ const authenticateUser = async ({ email, password }) => {
   const userEmail = await userModel.findOne({ email });
   if (!userEmail) return null;
   
-  const isValid =  await bcrypt.compare(password, userEmail.password);
-  if (isValid) {
-    return userEmail;
-  } else {
-    return null;
-  }
+  const isValid = await bcrypt.compare(password, userEmail.password);
+  if (!isValid) return null;
   
+  return userEmail;
 };
 
 module.exports = { registerUser, authenticateUser };
