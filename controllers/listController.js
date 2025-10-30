@@ -1,14 +1,12 @@
-// controllers/listController.js
 const listService = require('../services/listService');
 
 const listController = {
-  // Get all listings
   getAllListings: async (req, res) => {
     const listings = await listService.getAllListings();
     res.render('listings/listings', { listings });
   },
 
-  // Get a single listing
+  // Get a single listing by ID
   showListingDetails: async (req, res) => {
     const list = await listService.getListingById(req.params.id);
     res.render('listings/listingDetail', { list });

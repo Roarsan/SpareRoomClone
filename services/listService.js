@@ -1,30 +1,50 @@
-// services/listService.js
 const ListModel = require('../models/listModel');
+const ExpressError = require('../utils/ExpressError');
+const httpStatus = require('../utils/httpStatus');
 
-// Get all listings
 const getAllListings = async () => {
-  return await ListModel.find();
+  const listings = await ListModel.find();
+  if (!listings || listings.length === 0) {
+    throw new ExpressError(httpStatus.NOT_FOUND.code, 'No listings found.');
+  }
+  return listings;
 };
 
-// Get one listing by ID
+// Get a single listing by ID
 const getListingById = async (id) => {
-  return await ListModel.findById(id);
+  const listing = await ListModel.findById(id);
+  if (!listing) {
+    throw new ExpressError(httpStatus.NOT_FOUND.code, 'Listing not found.');
+  }
+  return listing;
 };
 
-// Create a new listing
+// Save a new listing to the db
 const createListing = async (data) => {
   const newList = new ListModel(data);
-  return await newList.save();
+  const saved = await newList.save();
+  if (!saved) {
+    throw new ExpressError(httpStatus.BAD_REQUEST.code, 'Failed to create listing.');
+  }
+  return saved;
 };
 
 // Update an existing listing
 const updateListing = async (id, data) => {
-  return await ListModel.findByIdAndUpdate(id, data, { new: true });
+  const updated = await ListModel.findByIdAndUpdate(id, data, { new: true });
+  if (!updated) {
+    throw new ExpressError(httpStatus.NOT_FOUND.code, 'Listing not found for update.');
+  }
+  return updated;
 };
 
 // Delete a listing
 const deleteListing = async (id) => {
-  return await ListModel.findByIdAndDelete(id);
+  const deleted = await ListModel.findByIdAndDelete(id);
+  if (!deleted) {
+    throw new ExpressError(httpStatus.NOT_FOUND.code, 'Listing not found for deletion.');
+  }
+  return deleted;
 };
 
 module.exports = {

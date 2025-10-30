@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require("../controllers/authController");
 const wrapAsync = require("../utils/wrapAsync");
 const validate = require("../middleware/validateSchema");
-const {registerSchema,loginSchema} = require("../schemas/userSchema");
+const {registerSchema,loginSchema} = require("../joiSchemas/userSchema");
 
 
 router.get("/register", auth.renderRegister);

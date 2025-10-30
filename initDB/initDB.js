@@ -1,9 +1,9 @@
 //connecting the db and seeding the sample data
-const initData = require("./sampleData.js");
-const ListModel = require("../listModel.js");
+const initData = require("../models/sampleData/sampleData.js");
+const ListModel = require("../models/listModel.js");
 
 // Import database connection
-const connectDB = require("../../config/connectDB");
+const connectDB = require("../config/connectDB.js");
 
 // Connect to database
 connectDB();

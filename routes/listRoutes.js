@@ -3,7 +3,7 @@ const router = express.Router();
 const listController = require("../controllers/listController");
 const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn, isOwner } = require("../middleware/auth");
-const listSchema = require('../schemas/listSchema');
+const listSchema = require('../joiSchemas/listSchema');
 const validate = require('../middleware/validateSchema');
 
 // All listing-related routes
