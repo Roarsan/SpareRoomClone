@@ -127,7 +127,7 @@ The application comes with 3 sample listings:
 | Method | Route | Handler | Description |
 |--------|-------|---------|-------------|
 | GET | `/` | inline | Welcome page with navigation |
-| GET | `/list` | `getAllListings` | Display all property listings |
+| GET | `/list/listing` | `getAllListings` | Display all property listings |
 | GET | `/list/newlisting` | `newListing` | Show create listing form |
 | POST | `/list/createlisting` | `createListing` | Create new listing |
 | GET | `/list/:id` | `showListingDetails` | Show single listing details |
@@ -135,48 +135,70 @@ The application comes with 3 sample listings:
 | PUT | `/list/:id` | `updateListing` | Update existing listing |
 | DELETE | `/list/:id` | `deleteListing` | Delete listing |
 
+### Auth Routes
+| Method | Route | Handler | Description |
+|--------|-------|---------|-------------|
+| GET | `/auth/register` | `renderRegister` | Render register page |
+| POST | `/auth/registerUser` | `registerUser` | Register a new user |
+| GET | `/auth/login` | `renderLogin` | Render login page |
+| POST | `/auth/loginUser` | `loginUser` | Login a user |
+| POST | `/auth/logout` | `logout` | Logout current user |
+
 ## 🧱 Project Structure
 
 ```
 SpareRoom/
-├── app.js                    # Main application entry point
-├── .env                      # Environment variables (not in git)
-├── .gitignore               # Git ignore rules
-├── package.json              # Dependencies and scripts
+├── app.js                      # Main application entry point
+├── package.json                # Dependencies and scripts
 ├── config/
-│   ├── connectDB.js         # MongoDB connection configuration
-│   └── session.js           # Session configuration
+│   ├── connectDB.js           # MongoDB connection configuration
+│   ├── session.js             # Session configuration
+│   └── flash.js               # Flash messages setup
 ├── controllers/
-│   └── listController.js     # Business logic for listing operations
+│   ├── authController.js      # Auth views and session control
+│   └── listController.js      # Listing operations
+├── initDB/
+│   └── initDB.js              # Database initialization script
+├── joiSchemas/
+│   ├── listSchema.js          # Joi validation schema for listings
+│   └── userSchema.js          # Joi validation schema for users
+├── middleware/
+│   ├── auth.js                # isLoggedIn and isOwner guards
+│   └── validateSchema.js      # Generic Joi validator
 ├── models/
-│   ├── listModel.js         # Mongoose schema definition
-│   └── init/
-│       ├── initDB.js        # Database initialization script
-│       └── sampleData.js    # Sample property data
+│   ├── listModel.js           # Mongoose schema for listings
+│   ├── sampleData/
+│   │   └── sampleData.js      # Sample property data
+│   └── userModel.js           # Mongoose schema for users
 ├── public/
 │   ├── css/
-│   │   └── main.css         # Custom styling
+│   │   └── main.css           # Custom styling
 │   └── js/
-│       └── script.js        # Client-side JavaScript
+│       └── script.js          # Client-side JavaScript
 ├── routes/
-│   └── routes.js            # Route definitions
-├── schemas/
-│   └── schema.js            # Joi validation schemas
+│   ├── authRoutes.js          # Auth routes
+│   └── listRoutes.js          # Listing routes
+├── services/
+│   ├── listService.js         # Listing DB operations
+│   └── userService.js         # User auth logic
 ├── utils/
-│   ├── ExpressError.js      # Custom error class
-│   ├── validateList.js      # Validation middleware
-│   └── wrapAsync.js         # Async error handling wrapper
+│   ├── ExpressError.js        # Custom error class
+│   ├── httpStatus.js          # HTTP status helpers
+│   └── wrapAsync.js           # Async error handling wrapper
 └── views/
-    ├── error.ejs            # Error page template
+    ├── error.ejs              # Error page template
     ├── partials/
-    │   ├── navbar.ejs       # Navigation component
-    │   └── footer.ejs       # Footer component
+    │   ├── navbar.ejs         # Navigation component
+    │   └── footer.ejs         # Footer component
+    ├── auth/
+    │   ├── login.ejs          # Login view
+    │   └── register.ejs       # Register view
     └── listings/
-        ├── listings.ejs     # All listings grid view
-        ├── listingDetail.ejs # Single listing detail view
-        ├── createlisting.ejs # Create listing form
-        ├── updatelisting.ejs # Edit listing form
-        └── deletelisting.ejs # Delete confirmation view
+        ├── listings.ejs       # All listings grid view
+        ├── listingDetail.ejs  # Single listing detail view
+        ├── createlisting.ejs  # Create listing form
+        ├── updatelisting.ejs  # Edit listing form
+        └── deletelisting.ejs  # Delete confirmation view
 ```
 
 ## 🔧 Architecture & Patterns
@@ -197,9 +219,11 @@ SpareRoom/
 2. `express.json()` — Parse JSON bodies
 3. `express.static()` — Serve static files
 4. `methodOverride()` — Enable PUT/DELETE methods
-5. Route handlers
-6. 404 handler
-7. Global error handler
+5. Session setup via `config/session.js`
+6. Flash messages via `config/flash.js`
+7. Route handlers
+8. 404 handler
+9. Global error handler
 
 ## 🎨 Styling & Design
 
@@ -265,6 +289,6 @@ For questions or issues:
 ---
 
 **Version**: 1.0.0  
-**Last Updated**: December 2024  
+**Last Updated**: October 2025  
 **Node.js**: 18+  
 **MongoDB**: Latest

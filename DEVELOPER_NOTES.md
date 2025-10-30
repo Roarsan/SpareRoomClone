@@ -29,35 +29,52 @@ A modern property listings web application inspired by SpareRoom.co.uk, built wi
 
 ```
 SpareRoom/
-├── app.js                    # Main application entry point
-├── .env                      # Environment variables
+├── app.js                      # Main application entry point
 ├── config/
-│   ├── connectDB.js         # MongoDB connection
-│   └── session.js           # Session configuration
+│   ├── connectDB.js           # MongoDB connection
+│   ├── session.js             # Session configuration
+│   └── flash.js               # Flash messages setup
 ├── controllers/
-│   └── listController.js     # Business logic for listing operations
+│   ├── authController.js      # Auth views and session control
+│   └── listController.js      # Listing business logic
+├── initDB/
+│   └── initDB.js              # DB seed script
+├── joiSchemas/
+│   ├── listSchema.js          # Listing validation
+│   └── userSchema.js          # User validation
+├── middleware/
+│   ├── auth.js                # isLoggedIn, isOwner
+│   └── validateSchema.js      # Joi validator
 ├── models/
-│   ├── listModel.js         # Mongoose schema
-│   └── init/                # Database initialization
-├── public/                  # Static assets
+│   ├── listModel.js           # Listing schema
+│   ├── sampleData/
+│   │   └── sampleData.js      # Seed data
+│   └── userModel.js           # User schema
+├── public/                    # Static assets
 ├── routes/
-│   └── routes.js            # Route definitions
-├── schemas/
-│   └── schema.js            # Joi validation
+│   ├── authRoutes.js          # Auth routes
+│   └── listRoutes.js          # Listing routes
+├── services/
+│   ├── listService.js         # Listing DB ops
+│   └── userService.js         # Auth logic (bcrypt)
 ├── utils/
-│   ├── ExpressError.js      # Custom error class
-│   └── wrapAsync.js         # Async error handling wrapper
+│   ├── ExpressError.js        # Custom error class
+│   ├── httpStatus.js          # HTTP status helpers
+│   └── wrapAsync.js           # Async wrapper
 └── views/
-    ├── error.ejs            # Error page template
+    ├── error.ejs              # Error page
     ├── partials/
-    │   ├── navbar.ejs       # Navigation component
-    │   └── footer.ejs       # Footer component
+    │   ├── navbar.ejs
+    │   └── footer.ejs
+    ├── auth/
+    │   ├── login.ejs
+    │   └── register.ejs
     └── listings/
-        ├── listings.ejs     # All listings grid view
-        ├── listingDetail.ejs # Single listing detail view
-        ├── createlisting.ejs # Create listing form
-        ├── updatelisting.ejs # Edit listing form
-        └── deletelisting.ejs # Delete confirmation view
+        ├── listings.ejs
+        ├── listingDetail.ejs
+        ├── createlisting.ejs
+        ├── updatelisting.ejs
+        └── deletelisting.ejs
 ```
 
 ## 🗄️ Database Schema
@@ -80,7 +97,7 @@ SpareRoom/
 | Method | Route | Handler | Description |
 |--------|-------|---------|-------------|
 | GET | `/` | inline | Welcome page with navigation |
-| GET | `/list` | getAllListings | Display all property listings |
+| GET | `/list/listing` | getAllListings | Display all property listings |
 | GET | `/list/newlisting` | newListing | Show create listing form |
 | POST | `/list/createlisting` | createListing | Create new listing |
 | GET | `/list/:id` | showListingDetails | Show single listing details |
@@ -100,7 +117,7 @@ SpareRoom/
 ### Session Management
 - **MongoDB Store**: Sessions persisted in MongoDB
 - **Security**: HttpOnly cookies, secure session secrets
-- **Configuration**: 7-day session duration, custom session name
+- **Configuration**: 7-day session duration, custom session name (`spare.sid`)
 
 
 ### Input Validation
@@ -202,14 +219,13 @@ NODE_ENV=development
 ## 🐛 Known Issues & Limitations
 
 ### Current Limitations
-1. **No Authentication**: No user management or login system
-2. **No Image Upload**: Only URL-based image storage (no file upload)
-3. **No Search/Filter**: Basic listing display without search functionality
-4. **No Pagination**: All listings displayed on single page
-5. **No Advanced Validation**: Basic server-side validation only
-6. **No Error Recovery**: Limited error recovery mechanisms
-7. **No API Documentation**: No Swagger/OpenAPI documentation
-8. **No Testing**: No unit or integration tests
+1. **No Image Upload**: Only URL-based image storage (no file upload)
+2. **No Search/Filter**: Basic listing display without search functionality
+3. **No Pagination**: All listings displayed on single page
+4. **No Advanced Validation**: Basic server-side validation only
+5. **No Error Recovery**: Limited error recovery mechanisms
+6. **No API Documentation**: No Swagger/OpenAPI documentation
+7. **No Testing**: No unit or integration tests
 
 ### Technical Debt
 - **Code Duplication**: Some template code is duplicated in listings.ejs
@@ -308,6 +324,6 @@ NODE_ENV=development
 ---
 
 **Version**: 1.0.0  
-**Last Updated**: December 2024  
+**Last Updated**: October 2025  
 **Node.js**: 18+  
 **MongoDB**: Latest

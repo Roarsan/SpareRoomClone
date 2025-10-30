@@ -4,9 +4,6 @@ const httpStatus = require('../utils/httpStatus');
 
 const getAllListings = async () => {
   const listings = await ListModel.find();
-  if (!listings || listings.length === 0) {
-    throw new ExpressError(httpStatus.NOT_FOUND.code, 'No listings found.');
-  }
   return listings;
 };
 
