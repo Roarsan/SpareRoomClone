@@ -27,8 +27,8 @@ const authController = {
     res.redirect("/list/listing");
   },
 
-  logout: async(req, res) => {
-   await  req.session.destroy(() => res.redirect("/"));
+  logout: (req, res) => {
+   req.session.destroy(() => res.redirect("/"));
   }
 };
 
