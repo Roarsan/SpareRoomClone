@@ -1,5 +1,5 @@
 const List = require("../models/listModel");
-
+//checks the session for 
 module.exports.isLoggedIn = function isLoggedIn(req, res, next) {
     if (!req.session || !req.session.userId) {
       req.flash("error", "You must be signed in!");

@@ -1,13 +1,14 @@
 require('dotenv').config();
 const express = require("express");
-const app = express();
-const methodOverride = require("method-override");
 const connectDB = require("./config/connectDB");
+const methodOverride = require("method-override");
 const auth_Routes = require("./routes/authRoutes.js");
 const list_Routes = require("./routes/listRoutes.js");
-const ExpressError = require('./utils/ExpressError');
 const setupSession = require('./config/session');
 const setupFlash = require('./config/flash');
+const ExpressError = require('./utils/ExpressError');
+
+const app = express();
 
 // Connect to MongoDB
 connectDB();
@@ -31,12 +32,10 @@ setupFlash(app);
 app.get("/", (req, res) => {
   res.send("Welcome to SpareRoom Clone! <a href='/list/listing'>View Listings</a>");
 });
-
 app.use("/list", list_Routes);
-
 app.use("/auth", auth_Routes);
 
-// 404 handler
+// 404 handler if no routes matches
 app.all(/.*/, (req, res, next) => {
   next(new ExpressError(404, 'Page not found'));
 });

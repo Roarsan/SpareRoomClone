@@ -1,7 +1,7 @@
 {
   "name": "spareroom",
   "version": "1.0.0",
-  "description": "",
+  "description": "A modern property listings web application with user authentication",
   "main": "app.js",
   "scripts": {},
   "keywords": [],
@@ -19,5 +19,8 @@
     "joi": "^18.0.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
   }
 }

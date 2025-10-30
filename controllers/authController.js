@@ -1,4 +1,4 @@
-const userService = require("../services/userService");
+const authService = require("../services/userService");
 
 const authController = {
   renderRegister: (req, res) => {
@@ -6,7 +6,7 @@ const authController = {
   },
 
   registerUser: async (req, res) => {
-    const user = await userService.registerUser(req.body);
+    const user = await authService.registerUser(req.body);
     req.session.userId = user._id;
     req.flash("success", "Welcome!");
     res.redirect("/list/listing");
@@ -17,7 +17,7 @@ const authController = {
   },
 
   loginUser: async (req, res) => {
-    const user = await userService.authenticateUser(req.body);
+    const user = await authService.authenticateUser(req.body);
     if (!user) {
       req.flash("error", "User not found");
       return res.redirect("/auth/login");
